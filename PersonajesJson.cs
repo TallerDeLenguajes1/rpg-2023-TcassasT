@@ -21,15 +21,26 @@ public class PersonajesJson {
   static public List<Personaje> LeerPersonajes(string nombreDeArchivo) {
     List<Personaje> listaDePersonajes = new List<Personaje>();
 
-    if (File.Exists(nombreDeArchivo)) {
+    if (Existe(nombreDeArchivo)) {
       string? contenidoDeArchivo = File.ReadAllText(nombreDeArchivo);
 
-      // TODO usar trycatch para quitar advertencia
-      if (!string.IsNullOrEmpty(contenidoDeArchivo) && contenidoDeArchivo != null) {
-        listaDePersonajes = JsonSerializer.Deserialize<List<Personaje>>(contenidoDeArchivo);
-      }
+      listaDePersonajes = JsonSerializer.Deserialize<List<Personaje>>(contenidoDeArchivo);
     }
 
     return listaDePersonajes;
+  }
+
+  static public Boolean Existe(string nombreDeArchivo) {
+    Boolean existeYTieneCotenido = false;
+
+    if (File.Exists(nombreDeArchivo)) {
+      string? contenidoDeArchivo = File.ReadAllText(nombreDeArchivo);
+
+      if (!string.IsNullOrEmpty(contenidoDeArchivo)) {
+        existeYTieneCotenido = true;
+      }
+    }
+
+    return existeYTieneCotenido;
   }
 }
