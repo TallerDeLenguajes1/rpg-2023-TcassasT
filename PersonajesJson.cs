@@ -15,7 +15,7 @@ public class PersonajesJson {
       sw.WriteLine(serializedPersonajes);
     }
     
-    return true;
+    return Existe(nombreDeArchivo);
   }
 
   static public List<Personaje> LeerPersonajes(string nombreDeArchivo) {

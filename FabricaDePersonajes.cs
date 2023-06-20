@@ -20,6 +20,16 @@ public class FabricaDePersonajes {
     return personaje;
   }
 
+  public List<Personaje> generarListaDePersonajes(int cantidad) {
+    List<Personaje> listaDePersonajes = new List<Personaje>();
+
+    for (int i = 0; i < cantidad; i++) {
+      listaDePersonajes.Add(generarPersonajeAleatorio());
+    }
+
+    return listaDePersonajes;
+  }
+
   static private int getRandomInt(int limiteMenor, int limiteMayor) {
     Random random = new Random();
     return random.Next(limiteMenor, limiteMayor);
