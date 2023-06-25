@@ -19,6 +19,7 @@ public class Personaje {
   private string? apodo;
   private DateTime fechaDeNacimiento;
   private int edad;
+  private int bonusSalud;
 
   public int Velocidad { get => velocidad; set => velocidad = value; }
   public int Destreza { get => destreza; set => destreza = value; }
@@ -31,4 +32,25 @@ public class Personaje {
   public string? Apodo { get => apodo; set => apodo = value; }
   public DateTime FechaDeNacimiento { get => fechaDeNacimiento; set => fechaDeNacimiento = value; }
   public int Edad { get => edad; set => edad = value; }
+  public int BonusSalud { get => bonusSalud; set => bonusSalud = value; }
+
+  public int getAtaque() {
+    return this.Destreza * this.Fuerza * this.Nivel;
+  }
+
+  public int getDefensa() {
+    // La consigna dice que, al ganar un combate, hay que dar un bonus
+    // de "defensa", no de armadura. Como el bonus de salud es de +10
+    // y el bonus de defensa es +5, dividir la cantidad de bonus de salud
+    // en 2 y se obtiene el bonus de defensa.
+    return (this.Armadura * this.Velocidad) + this.BonusSalud / 2;
+  }
+
+  public void curar() {
+    this.Salud = 100 + this.BonusSalud;
+  }
+
+  public void bonusVictoria() {
+    this.BonusSalud += 10;
+  }
 }

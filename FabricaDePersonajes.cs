@@ -4,6 +4,8 @@ namespace EspacioFabricaDePersonajes;
 public class FabricaDePersonajes {
   public Personaje generarPersonajeAleatorio() {
     Personaje personaje = new Personaje();
+    int cantidadDeTipos = Enum.GetNames(typeof(TIPOS)).Length;
+    int tipoAleatorio = getRandomInt(0, cantidadDeTipos);
 
     personaje.Velocidad = getRandomInt(1, 10);
     personaje.Destreza = getRandomInt(1, 5);
@@ -11,11 +13,12 @@ public class FabricaDePersonajes {
     personaje.Nivel = getRandomInt(1, 10);
     personaje.Armadura = getRandomInt(1, 10);
     personaje.Salud = 100;
-    personaje.Tipo = TIPOS.ELFO;
+    personaje.Tipo = (TIPOS)Enum.GetValues(typeof(TIPOS)).GetValue(tipoAleatorio);
     personaje.Nombre = getRandomNombre();
     personaje.Apodo = getRandomApodo();
     personaje.FechaDeNacimiento = getRandomDate();
     personaje.Edad = getRandomInt(0, 300);
+    personaje.BonusSalud = 0;
 
     return personaje;
   }
@@ -30,7 +33,7 @@ public class FabricaDePersonajes {
     return listaDePersonajes;
   }
 
-  static private int getRandomInt(int limiteMenor, int limiteMayor) {
+  static public int getRandomInt(int limiteMenor, int limiteMayor) {
     Random random = new Random();
     return random.Next(limiteMenor, limiteMayor);
   }
