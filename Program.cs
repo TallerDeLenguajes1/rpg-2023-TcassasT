@@ -110,11 +110,11 @@ internal class Program {
 
       if (
         turno >= 15 && (
-          combatienteUno.Salud == 100 + combatienteUno.BonusSalud &&
+          combatienteUno.Salud == 100 + combatienteUno.BonusSalud ||
           combatienteDos.Salud == 100 + combatienteDos.BonusSalud
         )
       ) {
-        WriteLineSistema("x Pasaron mas de 15 turnos en los cuales ningún combatiente recibió daño.");
+        WriteLineSistema("x Pasaron mas de 15 turnos en los que uno de los combatientes no recibió daño.");
         WriteLineSistema("x Se procede a eliminar un combatiente basado en su cantiad de victorias, o aleatoriamente...");
 
         Thread.Sleep(1000);
@@ -126,7 +126,24 @@ internal class Program {
           WriteLineSistema("x Combatiente numero 1 eliminado.");
           return 1;
         } else {
-          return FabricaDePersonajes.getRandomInt(1, 2);
+          int combatienteEliminado = FabricaDePersonajes.getRandomInt(1, 2);
+          WriteLineSistema("x Combatiente numero " + combatienteEliminado + " eliminado.");
+          return combatienteEliminado;
+        }
+      }
+
+      if (turno > 30) {
+        WriteLineSistema("x ¡Pasaron 30 turnos!");
+        WriteLineSistema("x Se procede a eliminar al combatiente con menor salud.");
+
+        Thread.Sleep(1000);
+
+        if (combatienteUno.Salud > combatienteDos.Salud) {
+          WriteLineSistema("x Combatiente numero 2 eliminado.");
+          return 2;
+        } else {
+          WriteLineSistema("x Combatiente numero 1 eliminado.");
+          return 1;
         }
       }
     } while (combatienteUno.Salud > 0 && combatienteDos.Salud > 0);
