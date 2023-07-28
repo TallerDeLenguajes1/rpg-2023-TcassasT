@@ -19,6 +19,7 @@ public class FabricaDePersonajes {
     personaje.FechaDeNacimiento = getRandomDate();
     personaje.Edad = getRandomInt(0, 300);
     personaje.BonusSalud = 0;
+    personaje.ResistenciaAlAlcohol = getRandomInt(1, 10);
 
     return personaje;
   }

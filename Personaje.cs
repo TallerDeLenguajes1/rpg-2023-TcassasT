@@ -1,5 +1,7 @@
 namespace EspacioPersonaje;
 
+using EspacioBebida;
+
 public enum TIPOS {
   ORCO,
   ELFO,
@@ -20,6 +22,7 @@ public class Personaje {
   private DateTime fechaDeNacimiento;
   private int edad;
   private int bonusSalud;
+  private int resistenciaAlAlcohol;
 
   public int Velocidad { get => velocidad; set => velocidad = value; }
   public int Destreza { get => destreza; set => destreza = value; }
@@ -33,24 +36,54 @@ public class Personaje {
   public DateTime FechaDeNacimiento { get => fechaDeNacimiento; set => fechaDeNacimiento = value; }
   public int Edad { get => edad; set => edad = value; }
   public int BonusSalud { get => bonusSalud; set => bonusSalud = value; }
+  public int ResistenciaAlAlcohol { get => resistenciaAlAlcohol; set => resistenciaAlAlcohol = value; }
 
   public int getAtaque() {
     return this.Destreza * this.Fuerza * this.Nivel;
   }
 
   public int getDefensa() {
-    // La consigna dice que, al ganar un combate, hay que dar un bonus
-    // de "defensa", no de armadura. Como el bonus de salud es de +10
-    // y el bonus de defensa es +5, dividir la cantidad de bonus de salud
-    // en 2 y se obtiene el bonus de defensa.
-    return (this.Armadura * this.Velocidad) + this.BonusSalud / 2;
+    return (this.Armadura * this.Velocidad);
   }
 
   public void curar() {
     this.Salud = 100 + this.BonusSalud;
   }
 
-  public void bonusVictoria() {
+  public void bonusVictoria(Bebida bebida) {
+    if (bebida.Name.Equals("Agua")) {
+      aplicarBonus(5, 5, 5, 5);
+    } else {
+      if (this.ResistenciaAlAlcohol < 3) {
+        aplicarBonus(-2, -2, 0, -2);
+      } else if (this.ResistenciaAlAlcohol < 8) {
+        aplicarBonus(0, 0, 0, 1);
+      } else {
+        aplicarBonus(-2, -2, 2, 2);
+      }
+    }
+
     this.BonusSalud += 10;
+  }
+
+  public string anunciarResitencia(Bebida bebida) {
+    if(bebida.Name.Equals("Agua")) {
+      return "¡Nada mejor que un vaso de agua! (++destreza, ++velocidad, ++fuerza, ++armadura";
+    } else {
+      if (this.ResistenciaAlAlcohol < 4) {
+      return "¡" + this.Apodo + " no es para nada recistente al alcohol! (-destreza, -velocidad, -armadura)";
+    } else if (this.ResistenciaAlAlcohol < 6) {
+      return this.Apodo + " tiene una recistente al alcohol moderada (+armadura)";
+    } else {
+      return "¡" + this.Apodo + " es muy recistente al alcohol! (-destreza, -velocidad, +fuerza, +armadura)";
+    }
+    }
+  }
+
+  private void aplicarBonus(int bonusDestreza, int bonusVelocidad, int bonusFuerza, int bonusArmadura) {
+    this.Destreza += bonusDestreza;
+    this.Velocidad += bonusVelocidad;
+    this.Fuerza += bonusFuerza;
+    this.Armadura += bonusArmadura;
   }
 }

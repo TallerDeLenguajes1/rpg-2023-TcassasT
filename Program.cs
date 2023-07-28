@@ -1,6 +1,8 @@
 ﻿using EspacioPersonaje;
 using EspacioFabricaDePersonajes;
 using EspacioPersonajesJson;
+using EspacioFabricaDeBebidas;
+using EspacioBebida;
 
 internal class Program {
   private const string ArchivoPersonajes = "personajes.json";
@@ -13,22 +15,33 @@ internal class Program {
 
     int indiceCombate = 0;
     while (listaDeCombatientes.Count() >= 2) {
+      Console.Clear();
       WriteLineSistema("== Combatientes en juego: " + listaDeCombatientes.Count() + " ==");
       Thread.Sleep(3000);
 
       int ganadorDeCombate = iniciarCombate(listaDeCombatientes[indiceCombate], listaDeCombatientes[indiceCombate + 1], velocidadCombate);
 
+      Bebida bebidaAleatoria = FabricaDeBebidas.getRandomBebida();
+      WriteLineAviso("\nRey de la arena:");
+      WriteLineAviso("  ¡Denle su merecido premio al ganador, elige una bebida!");
+      Thread.Sleep(5000);
+      WriteLineAviso("\nBartender de la arena:");
+      WriteLineAviso("  By " + bebidaAleatoria.Instructions.ToLower() + " I give you " + bebidaAleatoria.Name + "!");
+      Thread.Sleep(6000);
+
       if (ganadorDeCombate == 1) {
-        listaDeCombatientes[indiceCombate].bonusVictoria();
+        listaDeCombatientes[indiceCombate].bonusVictoria(bebidaAleatoria);
+        WriteLineSistema("\n" + listaDeCombatientes[indiceCombate].anunciarResitencia(bebidaAleatoria));
         listaDeCombatientes[indiceCombate].curar();
         listaDeCombatientes.Remove(listaDeCombatientes[indiceCombate + 1]);
       } else {
-        listaDeCombatientes[indiceCombate + 1].bonusVictoria();
+        listaDeCombatientes[indiceCombate + 1].bonusVictoria(bebidaAleatoria);
+        WriteLineSistema("\n" + listaDeCombatientes[indiceCombate + 1].anunciarResitencia(bebidaAleatoria));
         listaDeCombatientes[indiceCombate + 1].curar();
         listaDeCombatientes.Remove(listaDeCombatientes[indiceCombate]);
       }
 
-      Thread.Sleep(2000);
+      Thread.Sleep(6000);
 
       indiceCombate += 1;
 
@@ -64,6 +77,7 @@ internal class Program {
   }
 
   static private void mostrarInfoGanador(Personaje combatienteGanador) {
+    Console.Clear();
     WriteLineExito("== ¡Fin del torneo! ==");
     WriteLineExito("x Ganador: " + combatienteGanador.Nombre + " \"" + combatienteGanador.Apodo + "\"" + ", el " + combatienteGanador.Tipo);
     WriteLineExito("x Velocidad:" + combatienteGanador.Velocidad);
@@ -119,17 +133,17 @@ internal class Program {
 
         Thread.Sleep(1000);
 
+        int indiceCombatienteEliminado = 0;
         if (combatienteUno.BonusSalud > combatienteDos.BonusSalud) {
-          WriteLineSistema("x Combatiente numero 2 eliminado.");
-          return 2;
+          indiceCombatienteEliminado = 2;
         } else if (combatienteDos.BonusSalud > combatienteUno.BonusSalud) {
-          WriteLineSistema("x Combatiente numero 1 eliminado.");
-          return 1;
+          indiceCombatienteEliminado = 1;
         } else {
-          int combatienteEliminado = FabricaDePersonajes.getRandomInt(1, 2);
-          WriteLineSistema("x Combatiente numero " + combatienteEliminado + " eliminado.");
-          return combatienteEliminado;
+          indiceCombatienteEliminado = FabricaDePersonajes.getRandomInt(1, 2);
         }
+
+        WriteLineSistema("x Combatiente numero " + indiceCombatienteEliminado + " eliminado.");
+        return indiceCombatienteEliminado;
       }
 
       if (turno > 30) {
@@ -138,13 +152,15 @@ internal class Program {
 
         Thread.Sleep(1000);
 
+        int indiceCombatienteEliminado = 0;
         if (combatienteUno.Salud > combatienteDos.Salud) {
-          WriteLineSistema("x Combatiente numero 2 eliminado.");
-          return 2;
+          indiceCombatienteEliminado = 2;
         } else {
-          WriteLineSistema("x Combatiente numero 1 eliminado.");
-          return 1;
+          indiceCombatienteEliminado = 1;
         }
+
+        WriteLineSistema("x Combatiente numero " + indiceCombatienteEliminado + " eliminado.");
+        return indiceCombatienteEliminado;
       }
     } while (combatienteUno.Salud > 0 && combatienteDos.Salud > 0);
 
