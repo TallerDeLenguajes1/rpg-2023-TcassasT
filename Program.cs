@@ -215,6 +215,7 @@ internal class Program {
 
       WriteLineExito("¡Archivo creado correctamente!");
       listaDePersonajes = PersonajesJson.LeerPersonajes(nombreDeArchivo);
+      Thread.Sleep(2000);
     }
 
     return listaDePersonajes;
