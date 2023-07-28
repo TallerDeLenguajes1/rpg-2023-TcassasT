@@ -26,6 +26,7 @@ internal class Program {
       WriteLineAviso("  ¡Denle su merecido premio al ganador, elige una bebida!");
       Thread.Sleep(5000);
       WriteLineAviso("\nBartender de la arena:");
+      WriteLineAviso("  Using " + bebidaAleatoria.ingredientesAsString());
       WriteLineAviso("  By " + bebidaAleatoria.Instructions.ToLower() + " I give you " + bebidaAleatoria.Name + "!");
       Thread.Sleep(6000);
 

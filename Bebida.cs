@@ -19,4 +19,12 @@ public class Bebida {
       this.Instructions = instructions;
       this.Name = name;
   }
+
+  public string ingredientesAsString() {
+    string ingredientesAsString = "";
+    for(int i = 0; i < this.Ingredients.Count(); i++) {
+      ingredientesAsString += this.Ingredients[i] + ", ";
+    }
+    return ingredientesAsString.Substring(0, ingredientesAsString.Length - 2);
+  }
 }
