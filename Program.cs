@@ -80,18 +80,19 @@ internal class Program {
     Console.Clear();
     WriteLineExito("== ¡Fin del torneo! ==");
     WriteLineExito("x Ganador: " + combatienteGanador.Nombre + " \"" + combatienteGanador.Apodo + "\"" + ", el " + combatienteGanador.Tipo);
-    WriteLineExito("x Velocidad:" + combatienteGanador.Velocidad);
-    WriteLineExito("x Destreza:" + combatienteGanador.Destreza);
-    WriteLineExito("x Fuerza:" + combatienteGanador.Fuerza);
-    WriteLineExito("x Nivel:" + combatienteGanador.Nivel);
-    WriteLineExito("x Armadura:" + combatienteGanador.Armadura);
-    WriteLineExito("x Salud:" + combatienteGanador.Salud);
-    WriteLineExito("x Tipo:" + combatienteGanador.Tipo);
-    WriteLineExito("x Nombre:" + combatienteGanador.Nombre);
-    WriteLineExito("x Apodo:" + combatienteGanador.Apodo);
-    WriteLineExito("x Fecha de nacimiento:" + combatienteGanador.FechaDeNacimiento.ToString("MM/dd/yyyy"));
-    WriteLineExito("x Edad:" + combatienteGanador.Edad);
-    WriteLineExito("x Bonus de salud:" + combatienteGanador.BonusSalud);
+    WriteLineExito("x Velocidad: " + combatienteGanador.Velocidad);
+    WriteLineExito("x Destreza: " + combatienteGanador.Destreza);
+    WriteLineExito("x Fuerza: " + combatienteGanador.Fuerza);
+    WriteLineExito("x Nivel: " + combatienteGanador.Nivel);
+    WriteLineExito("x Armadura: " + combatienteGanador.Armadura);
+    WriteLineExito("x Salud: " + combatienteGanador.Salud);
+    WriteLineExito("x Tipo: " + combatienteGanador.Tipo);
+    WriteLineExito("x Nombre: " + combatienteGanador.Nombre);
+    WriteLineExito("x Apodo: " + combatienteGanador.Apodo);
+    WriteLineExito("x Fecha de nacimiento: " + combatienteGanador.FechaDeNacimiento.ToString("MM/dd/yyyy"));
+    WriteLineExito("x Edad: " + combatienteGanador.Edad);
+    WriteLineExito("x Bonus de salud: " + combatienteGanador.BonusSalud);
+    WriteLineExito("x Recistencia al alcohol: " + combatienteGanador.ResistenciaAlAlcohol);
   }
 
   static private int iniciarCombate(Personaje combatienteUno, Personaje combatienteDos, int velocidadCombate) {
@@ -201,8 +202,10 @@ internal class Program {
     if (PersonajesJson.Existe(nombreDeArchivo)) {
       WriteLineExito("¡Archivo encontrado!");
       listaDePersonajes = PersonajesJson.LeerPersonajes(nombreDeArchivo);
+      Thread.Sleep(2000);
     } else {
       WriteLineAviso("Archivo no encontrado, creando y populando...");
+      Thread.Sleep(2000);
 
       do {
         FabricaDePersonajes fabricaPersonajes = new FabricaDePersonajes();
