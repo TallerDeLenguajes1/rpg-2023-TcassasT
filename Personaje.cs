@@ -52,14 +52,14 @@ public class Personaje {
 
   public void bonusVictoria(Bebida bebida) {
     if (bebida.Name.Equals("Agua")) {
-      aplicarBonus(5, 5, 5, 5);
+      aplicarBonus(2, 2, 2, 2);
     } else {
       if (this.ResistenciaAlAlcohol < 3) {
-        aplicarBonus(-2, -2, 0, -2);
+        aplicarBonus(-1, -1, 0, -1);
       } else if (this.ResistenciaAlAlcohol < 8) {
         aplicarBonus(0, 0, 0, 1);
       } else {
-        aplicarBonus(-2, -2, 2, 2);
+        aplicarBonus(-1, -1, 1, 1);
       }
     }
 
