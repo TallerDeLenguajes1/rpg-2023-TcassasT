@@ -81,9 +81,19 @@ public class Personaje {
   }
 
   private void aplicarBonus(int bonusDestreza, int bonusVelocidad, int bonusFuerza, int bonusArmadura) {
-    this.Destreza += bonusDestreza;
-    this.Velocidad += bonusVelocidad;
-    this.Fuerza += bonusFuerza;
-    this.Armadura += bonusArmadura;
+    if (this.Destreza + bonusDestreza >= 0) {
+      this.Destreza += bonusDestreza;
+    }
+    if (this.Velocidad + bonusVelocidad >= 0) {
+      this.Velocidad += bonusVelocidad;
+    }
+
+    if (this.Fuerza + bonusFuerza >= 0) {
+      this.Fuerza += bonusFuerza;
+    }
+
+    if (this.Armadura + bonusArmadura >= 0) {
+      this.Armadura += bonusArmadura;
+    }
   }
 }
