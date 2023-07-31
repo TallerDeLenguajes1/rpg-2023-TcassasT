@@ -2,6 +2,11 @@
 ## Metadata
 Este proyecto fué presentado el día viernes 28 de Julio en el laboratorio B, turno tarde.
 
+## Como jugar
+- `dotnet run`
+- Elegir una velocidad de batalla (afecta unicamente los `Thread.Sleep()`).
+- Espectar las batallas para ver al final quien es el ganador del torneo.
+
 ## Concepto
 Este RPG trata sobre un torneo de 10 luchadores generados de forma aleatoria, tanto nombres como estadisticas.
 
